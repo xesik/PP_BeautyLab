@@ -2,21 +2,25 @@ import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { BackArrowIcon } from "./BackArrowIcon";
 
-const SelectMasterStep = ({ onBack, onSelect }) => {
+const SelectMasterStep = ({ onBack, onSelect, categoryId }) => {
   const [masters, setMasters] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get("masters/") // Django должен отдавать GET /api/masters/
+    const url = categoryId
+      ? `masters/by-category/${categoryId}/`
+      : `masters/`; // 👈 показываем всех, если categoryId не задан
+
+    api.get(url)
       .then((res) => {
-        setMasters(res.data); // предполагаем, что это массив
+        setMasters(res.data);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Ошибка загрузки мастеров:", err);
         setLoading(false);
       });
-  }, []);
+  }, [categoryId]);
 
   return (
     <div className="min-h-screen w-full bg-orange-50 p-6">
@@ -33,7 +37,7 @@ const SelectMasterStep = ({ onBack, onSelect }) => {
             {masters.map((master) => (
               <div
                 key={master.id}
-                onClick={() => onSelect(master)} // ✅ при клике передаём объект мастера
+                onClick={() => onSelect(master)}
                 className="cursor-pointer bg-white p-6 rounded-xl shadow hover:shadow-md transition"
               >
                 <h2 className="text-2xl font-semibold">{master.name}</h2>

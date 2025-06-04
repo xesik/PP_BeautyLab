@@ -28,12 +28,18 @@ from core.views import SlotListView
 
 from core.views import SlotDetailView
 
+from core.views import MastersByCategoryView
+
+from core.views import ServicesByCategoryView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/masters/', MasterListView.as_view(), name='master-list'),
     path('api/services/with-categories/', ServiceCategoryWithServicesView.as_view(), name='services-with-categories'),
     path('api/appointments/', AppointmentCreateView.as_view(), name='create-appointment'),
     path("api/appointments/slots/", SlotListView.as_view()),
+    path('api/masters/by-category/<int:category_id>/', MastersByCategoryView.as_view()),
     path("api/appointments/slots/<int:pk>/", SlotDetailView.as_view()),
+    path('api/services/by-category/<int:category_id>/', ServicesByCategoryView.as_view()),
     path('api/posts/', PostListView.as_view())
 ]

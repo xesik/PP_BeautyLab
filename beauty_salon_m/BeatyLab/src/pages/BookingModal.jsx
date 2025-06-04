@@ -34,6 +34,7 @@ const BookingModal = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
+
   // Закрытие по Esc
   useEffect(() => {
     const handleEsc = (e) => {
@@ -78,6 +79,7 @@ error = {error}
           {step === 1 && (
             <SelectMasterStep
               onBack={() => setStep(0)}
+              categoryId={service?.service_cat} // 👈 передаём id категории
               onSelect={(selectedMaster) => {
                 setMaster(selectedMaster);
                 setStep(0);
@@ -87,10 +89,11 @@ error = {error}
 
           {step === 2 && (
             <SelectServiceStep
-              onBack={() => setStep(0)}
-              onSelect={(selectedService) => {
-                setService(selectedService);
-                setStep(0);
+            onBack={() => setStep(0)}
+            categoryId={master?.category} // 👈 передаём сюда
+            onSelect={(selectedService) => {
+              setService(selectedService);
+              setStep(0);
               }}
             />
           )}

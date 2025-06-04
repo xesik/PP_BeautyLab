@@ -5,7 +5,7 @@ from django.shortcuts import render
 from rest_framework.generics import ListAPIView, CreateAPIView, get_object_or_404
 from .models import Post, Master, ServiceCategory, Appointment, Service
 from .serializers import PostSerializer, MasterSerializer, ServiceCategoryWithServicesSerializer, \
-    AppointmentCreateSerializer, SlotSerializer
+    AppointmentCreateSerializer, SlotSerializer, ServiceSerializer
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
@@ -121,3 +121,19 @@ class SlotDetailView(APIView):
             return Response({"success": True})
         except Appointment.DoesNotExist:
             return Response({"error": "Appointment not found"}, status=status.HTTP_404_NOT_FOUND)
+
+class MastersByCategoryView(ListAPIView):
+    serializer_class = MasterSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id']
+        return Master.objects.filter(category_id=category_id)
+
+class ServicesByCategoryView(ListAPIView):
+    serializer_class = ServiceSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id']
+        return Service.objects.filter(service_cat_id=category_id)

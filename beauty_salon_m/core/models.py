@@ -76,6 +76,7 @@ class Service(models.Model):
 class Master(models.Model):
     name = models.CharField(max_length=255)
     rating = models.FloatField()
+    category = models.ForeignKey(ServiceCategory, on_delete=models.CASCADE, related_name="masters")
 
     def __str__(self):
         return self.name

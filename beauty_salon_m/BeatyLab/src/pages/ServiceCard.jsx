@@ -21,7 +21,7 @@ const ServiceCard = ({ service }) => {
 
         {/* Правая колонка */}
         <aside className="w-6/12 flex flex-col max-md:w-full">
-          <PriceList />
+          <PriceList prices={service.prices} />
         </aside>
       </div>
     </section>

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BackArrowIcon } from "../entry_4/BackArrowIcon";
+import api from "../../api/axios";
 
 const generateTimeSlots = (start = 9, end = 20) => {
   const slots = [];
@@ -13,6 +14,7 @@ const generateTimeSlots = (start = 9, end = 20) => {
 const SelectDateTimeStep = ({ onBack, onSelect }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [bookedSlots, setBookedSlots] = useState([]);
 
   const times = generateTimeSlots();
 
@@ -30,6 +32,22 @@ const SelectDateTimeStep = ({ onBack, onSelect }) => {
     return d.toISOString().split("T")[0]; // YYYY-MM-DD
   });
 
+  useEffect(() => {
+    if (selectedDate) {
+      api.get("/appointments/slots/")
+        .then((res) => {
+          const booked = res.data
+            .filter((a) => a.date === selectedDate)
+            .map((a) => a.time);
+          setBookedSlots(booked);
+        })
+        .catch((err) => {
+          console.error("Ошибка загрузки слотов:", err);
+          setBookedSlots([]);
+        });
+    }
+  }, [selectedDate]);
+
   return (
     <div className="min-h-screen w-full bg-orange-50 p-6">
       <div className="max-w-3xl mx-auto">
@@ -45,8 +63,11 @@ const SelectDateTimeStep = ({ onBack, onSelect }) => {
             {dates.map((date) => (
               <button
                 key={date}
-                onClick={() => setSelectedDate(date)}
-                className={`px-4 py-2 rounded-xl border ${
+                onClick={() => {
+                  setSelectedDate(date);
+                  setSelectedTime(null); // сбрасываем выбранное время при смене даты
+                }}
+                className={`px-4 py-2 rounded-xl border transition ${
                   selectedDate === date
                     ? "bg-purple-600 text-white"
                     : "bg-white text-black hover:bg-purple-100"
@@ -65,19 +86,25 @@ const SelectDateTimeStep = ({ onBack, onSelect }) => {
         <div className="mb-10">
           <h2 className="text-2xl font-semibold mb-4">Время</h2>
           <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
-            {times.map((time) => (
-              <button
-                key={time}
-                onClick={() => setSelectedTime(time)}
-                className={`px-4 py-2 rounded-xl border ${
-                  selectedTime === time
-                    ? "bg-purple-600 text-white"
-                    : "bg-white text-black hover:bg-purple-100"
-                }`}
-              >
-                {time}
-              </button>
-            ))}
+            {times.map((time) => {
+              const isBooked = bookedSlots.includes(time);
+              return (
+                <button
+                  key={time}
+                  onClick={() => !isBooked && setSelectedTime(time)}
+                  disabled={isBooked}
+                  className={`px-4 py-2 rounded-xl border transition ${
+                    isBooked
+                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                      : selectedTime === time
+                      ? "bg-purple-600 text-white"
+                      : "bg-white text-black hover:bg-purple-100"
+                  }`}
+                >
+                  {time}
+                </button>
+              );
+            })}
           </div>
         </div>
 

@@ -10,12 +10,12 @@ class PostSerializer(serializers.ModelSerializer):
 class MasterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Master
-        fields = ['id', 'name', 'rating']
+        fields = ['id', 'name', 'rating', 'category']
 
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
-        fields = ['id', 'name', 'price']
+        fields = ['id', 'name', 'price', 'service_cat']
 
 class ServiceCategoryWithServicesSerializer(serializers.ModelSerializer):
     services = ServiceSerializer(source='service_set', many=True)

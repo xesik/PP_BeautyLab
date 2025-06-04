@@ -15,12 +15,12 @@ const ServiceCategories = ({ categories, onSelect, selected }) => {
         <button onClick={() => onSelect("Брови")} className="px-16 py-1.5 whitespace-nowrap bg-white rounded-2xl max-md:px-5">
           Косметология
         </button>
-        <button className="px-8 py-1.5 bg-white rounded-2xl max-md:px-5">
-          Маникюр и педикюр
-        </button>
-        <button className="px-16 py-1.5 whitespace-nowrap bg-white rounded-2xl max-md:px-5">
-          Стрижка
-        </button>
+        <button onClick={() => onSelect("Маникюр и педикюр")} className="px-8 py-1.5 bg-white rounded-2xl max-md:px-5">
+  Маникюр и педикюр
+</button>
+        <button onClick={() => onSelect("Стрижка")} className="px-16 py-1.5 whitespace-nowrap bg-white rounded-2xl max-md:px-5">
+  Стрижка
+</button>
       </div>
     </section>
   );

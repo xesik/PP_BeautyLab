@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
 import ChevronIcon from "./ChevronIcon";
-import ServiceCategory from "./ServiceCategory";
 import ServiceItem from "./ServiceItem";
 import { BackArrowIcon } from "../entry_4/BackArrowIcon";
 import api from "../../api/axios";
 
-const SelectServiceStep = ({ onBack, onSelect }) => {
+const SelectServiceStep = ({ onBack, onSelect, categoryId }) => {
   const [categories, setCategories] = useState([]);
   const [expanded, setExpanded] = useState(null);
 
   useEffect(() => {
-    // Подгружаем категории с услугами
-    api.get("services/with-categories/") // или два отдельных запроса: categories + services
-      .then((res) => setCategories(res.data))
+    const url = categoryId
+      ? `services/by-category/${categoryId}/`
+      : `services/with-categories/`; // 👈 все категории и услуги
+
+    api.get(url)
+      .then((res) => {
+        const data = categoryId
+          ? [{ id: categoryId, name: "Категория", services: res.data }]
+          : res.data;
+
+        setCategories(data);
+      })
       .catch((err) => console.error("Ошибка загрузки услуг:", err));
-  }, []);
+  }, [categoryId]);
 
   return (
     <div className="min-h-screen w-full bg-orange-50 p-6">
@@ -38,10 +46,7 @@ const SelectServiceStep = ({ onBack, onSelect }) => {
               {expanded === index && (
                 <div className="w-full bg-white">
                   {cat.services.map((srv) => (
-                    <div
-                      key={srv.id}
-                      onClick={() => onSelect(srv)}
-                    >
+                    <div key={srv.id} onClick={() => onSelect(srv)}>
                       <ServiceItem
                         title={srv.name}
                         price={`${srv.price} ₽`}
