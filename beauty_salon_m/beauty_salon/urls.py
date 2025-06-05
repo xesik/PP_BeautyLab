@@ -32,6 +32,8 @@ from core.views import MastersByCategoryView
 
 from core.views import ServicesByCategoryView
 
+from core.views import PostDetailView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/masters/', MasterListView.as_view(), name='master-list'),
@@ -39,6 +41,7 @@ urlpatterns = [
     path('api/appointments/', AppointmentCreateView.as_view(), name='create-appointment'),
     path("api/appointments/slots/", SlotListView.as_view()),
     path('api/masters/by-category/<int:category_id>/', MastersByCategoryView.as_view()),
+    path("api/posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path("api/appointments/slots/<int:pk>/", SlotDetailView.as_view()),
     path('api/services/by-category/<int:category_id>/', ServicesByCategoryView.as_view()),
     path('api/posts/', PostListView.as_view())

@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 from django.shortcuts import render
 
-from rest_framework.generics import ListAPIView, CreateAPIView, get_object_or_404
+from rest_framework.generics import ListAPIView, CreateAPIView, get_object_or_404, RetrieveAPIView
 from .models import Post, Master, ServiceCategory, Appointment, Service
 from .serializers import PostSerializer, MasterSerializer, ServiceCategoryWithServicesSerializer, \
     AppointmentCreateSerializer, SlotSerializer, ServiceSerializer
@@ -137,3 +137,8 @@ class ServicesByCategoryView(ListAPIView):
     def get_queryset(self):
         category_id = self.kwargs['category_id']
         return Service.objects.filter(service_cat_id=category_id)
+
+
+class PostDetailView(RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
