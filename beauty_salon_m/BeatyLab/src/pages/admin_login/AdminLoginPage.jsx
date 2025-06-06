@@ -35,7 +35,6 @@ const AdminLoginPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-orange-50">
-      <NavigationHeader />
       <main className="flex flex-col flex-grow justify-center items-center py-16 px-4">
         <div className="bg-white rounded-xl shadow-lg p-10 w-full max-w-md">
           <h2 className="text-3xl font-semibold text-center mb-6 text-stone-700">Вход в админ-панель</h2>

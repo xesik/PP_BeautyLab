@@ -7,6 +7,12 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ['id', 'title', 'text', 'image']  # можно добавить image, если нужно
 
+    def get_image(self, obj):
+        request = self.context.get('request')
+        if obj.image and request:
+            return request.build_absolute_uri(obj.image.url)
+        return None
+
 class MasterSerializer(serializers.ModelSerializer):
     category_id = serializers.IntegerField(source='category.id')
     category_name = serializers.CharField(source='category.name')

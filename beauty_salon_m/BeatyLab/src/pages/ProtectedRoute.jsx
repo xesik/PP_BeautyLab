@@ -10,7 +10,7 @@ const ProtectedRoute = () => {
       .catch(() => setAuthorized(false));
   }, []);
 
-  if (authorized === null) return null; // или <Loader />
+  if (authorized === null) return null;
 
   return authorized ? <Outlet /> : <Navigate to="/admin_login" replace />;
 };
