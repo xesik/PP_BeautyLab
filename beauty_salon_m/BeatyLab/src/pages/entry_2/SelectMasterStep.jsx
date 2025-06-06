@@ -43,7 +43,7 @@ const SelectMasterStep = ({ onBack, onSelect, categoryId }) => {
                 <h2 className="text-2xl font-semibold">{master.name}</h2>
                 <p className="mt-2 text-gray-500">Рейтинг: {master.rating}</p>
                 <p className="mt-1 text-gray-400 text-sm">
-                  Категория: {master.category_name || "Не указана"}
+                  Специализация: {master.category_name || "Не указана"}
                 </p>
               </div>
             ))}

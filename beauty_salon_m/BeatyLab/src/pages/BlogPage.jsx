@@ -4,6 +4,7 @@ import NavigationHeader from "../pages/NavigationHeader";
 import BookingModal from "./BookingModal";
 import api from "../api/axios";
 import Footer from "./Footer";
+import Layout from "./Layout";
 
 const BlogPage = () => {
   const [posts, setPosts] = useState([]);
@@ -21,10 +22,10 @@ const BlogPage = () => {
   return (
     <div className="bg-orange-50 min-h-screen flex flex-col">
       {/* Хедер — вне flex-grow, с отступом */}
-      <div className="px-4 py-10">
-        <NavigationHeader setOpenBooking={setOpenBooking} />
-      </div>
-
+{/* //       <div className="px-4 py-10"> */}
+{/* //         <NavigationHeader setOpenBooking={setOpenBooking} /> */}
+{/* //       </div> */}
+<Layout>
       {/* Контент — тянется и прижимает футер вниз */}
       <section className="flex-grow max-w-6xl mx-auto flex flex-col gap-16 mt-10 px-4">
         {posts.map((post) => (
@@ -40,7 +41,7 @@ const BlogPage = () => {
           />
         ))}
       </section>
-
+</Layout>
       {/* Футер — всегда внизу */}
       <Footer />
 

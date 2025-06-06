@@ -6,6 +6,7 @@ import ServiceCard from "./ServiceCard";
 import PriceList from "./PriceList";
 import BookingModal from "./BookingModal";
 import Footer from "./Footer";
+import Layout from "./Layout";
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("Макияж");
@@ -13,11 +14,11 @@ const HomePage = () => {
 
   return (
     <main className="flex flex-col min-h-screen bg-orange-50">
-  <div className="flex flex-col items-center px-20 pt-6 pb-28 max-w-[1675px] mx-auto w-full">
-    <NavigationHeader setOpenBooking={setOpenBooking} />
+  <Layout>
     <ServiceCategories onSelect={setSelectedCategory} />
     <ServiceCard service={servicesData[selectedCategory]} />
-  </div>
+    </Layout>
+  
 
   <Footer />
   <BookingModal isOpen={openBooking} onClose={() => setOpenBooking(false)} />

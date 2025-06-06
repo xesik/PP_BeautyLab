@@ -9,7 +9,7 @@ export const Header = ({ onBack }) => {
       </button>
 
       {/* Абсолютно центрированный логотип */}
-      <h1 className="absolute left-1/2 transform -translate-x-1/2 text-5xl text-center">
+      <h1 className="absolute left-1/2 transform font-serif -translate-x-1/2 text-5xl text-center">
         <span className="text-orange-300">Beauty</span>
         <span className="text-fuchsia-700">Lab</span>
       </h1>

@@ -149,7 +149,7 @@ class LoginView(APIView):
         login_ = request.data.get('login')
         password = request.data.get('password')
         user = authenticate(request, username=login_, password=password)
-        if user and user.is_staff:
+        if user:
             login(request, user)
             return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)

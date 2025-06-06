@@ -4,6 +4,7 @@ import api from '../api/axios';
 import Footer from './Footer';
 import BookingModal from "./BookingModal";
 import NavigationHeader from "./NavigationHeader";
+import Layout from "./Layout"
 
 const FullBlogPage = () => {
   const { id } = useParams();
@@ -23,9 +24,7 @@ const FullBlogPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-orange-50 font-jost">
-      <NavigationHeader setOpenBooking={setOpenBooking} />
-
-      <main className="flex-grow px-6 py-16 flex justify-center">
+      <Layout>
         <article className="w-full max-w-7xl inline-block mx-auto bg-white p-10 rounded-medium shadow-lg text-black">
           {/* Кнопка назад */}
           <button
@@ -38,7 +37,7 @@ const FullBlogPage = () => {
           <h2 className="text-3xl font-medium mb-8">{post.title}</h2>
           <p className="text-xl whitespace-pre-line leading-relaxed">{post.text}</p>
         </article>
-      </main>
+      </Layout>
 
       <Footer />
       <BookingModal isOpen={openBooking} onClose={() => setOpenBooking(false)} />

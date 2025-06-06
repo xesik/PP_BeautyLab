@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.utils.dateparse import parse_duration
 
 
 # Кастомный менеджер пользователей

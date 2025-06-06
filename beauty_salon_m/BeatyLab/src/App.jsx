@@ -8,12 +8,14 @@ import FullBlogPage from "./pages/FullBlogPage";
 import AdminPanel from './pages/entry_5/AdminPanel';
 import AdminLoginPage from "./pages/admin_login/AdminLoginPage";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import BeautyLabLanding from "./pages/BeautyLabLanding";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<BeautyLabLanding />} />
+        <Route path="/services" element={<HomePage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/post/:id" element={<FullBlogPage />} />
         <Route path="/admin" element={<AdminPanel />} />
