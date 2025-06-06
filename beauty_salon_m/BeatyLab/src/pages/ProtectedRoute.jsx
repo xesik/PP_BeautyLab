@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import api from "../api/axios";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ children }) => {
-  const [isAdmin, setIsAdmin] = useState(null);
+const ProtectedRoute = () => {
+  const [authorized, setAuthorized] = useState(null);
 
   useEffect(() => {
-    api.get("/auth/check/") // должен быть реализован на Django
-      .then((res) => {
-        setIsAdmin(res.data.is_staff === true);
-      })
-      .catch(() => {
-        setIsAdmin(false);
-      });
+    fetch("/api/check-admin/", { credentials: "include" })
+      .then(res => setAuthorized(res.ok))
+      .catch(() => setAuthorized(false));
   }, []);
 
-  if (isAdmin === null) return <div className="text-center mt-20">Проверка доступа...</div>;
-  if (!isAdmin) return <Navigate to="/login" replace />;
+  if (authorized === null) return null; // или <Loader />
 
-  return children;
+  return authorized ? <Outlet /> : <Navigate to="/admin_login" replace />;
 };
 
 export default ProtectedRoute;

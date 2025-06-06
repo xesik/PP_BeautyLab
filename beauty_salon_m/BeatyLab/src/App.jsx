@@ -18,16 +18,11 @@ function App() {
         <Route path="/services" element={<HomePage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/post/:id" element={<FullBlogPage />} />
-        <Route path="/admin" element={<AdminPanel />} />
         <Route path="/admin_login" element={<AdminLoginPage />} />
 
-    <Route path="/admin" element={
-  <ProtectedRoute>
-    <AdminPanel />
-  </ProtectedRoute>
-} />
-<Route path="/login" element={<AdminLoginPage />} />
-
+    <Route element={<ProtectedRoute />}>
+  <Route path="/admin" element={<AdminPanel />} />
+</Route>
       </Routes>
     </BrowserRouter>
   );

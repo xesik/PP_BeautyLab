@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminHeader from "./AdminHeader";
 import LogoSection from "./LogoSection";
 import api from "../../api/axios";
@@ -16,8 +17,18 @@ const AdminPanel = () => {
     master: "",
     service: "",
   });
-
   const [editingId, setEditingId] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("/api/check-admin/", { credentials: "include" })
+      .then(res => {
+        if (res.ok) setChecked(true);
+        else navigate("/admin_login");
+      })
+      .catch(() => navigate("/admin_login"));
+  }, [navigate]);
 
   const fetchAppointments = () => {
     api.get("appointments/slots/")
@@ -26,8 +37,8 @@ const AdminPanel = () => {
   };
 
   useEffect(() => {
-    fetchAppointments();
-  }, []);
+    if (checked) fetchAppointments();
+  }, [checked]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,10 +85,21 @@ const AdminPanel = () => {
     setEditingId(null);
   };
 
+  const handleLogout = async () => {
+    await fetch("/api/admin-logout/", { credentials: "include" });
+    navigate("/admin_login");
+  };
+
+  if (!checked) return null;
+
   return (
     <main className="bg-orange-50 min-h-screen p-8">
-
-      <h2 className="text-3xl font-semibold my-6">Управление записями</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-3xl font-semibold">Управление записями</h2>
+        <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded">
+          Выйти
+        </button>
+      </div>
 
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-md mb-10 grid gap-4 md:grid-cols-2">
         <input type="date" name="date" value={formData.date} onChange={handleChange} className="p-3 border rounded" required />

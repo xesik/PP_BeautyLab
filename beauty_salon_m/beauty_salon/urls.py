@@ -36,9 +36,9 @@ from core.views import ServicesByCategoryView
 
 from core.views import PostDetailView
 
-from core.views import LoginView
+from core.views import admin_login
 
-from core.views import CheckAdminStatusView
+from core.views import check_admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -46,12 +46,12 @@ urlpatterns = [
     path('api/services/with-categories/', ServiceCategoryWithServicesView.as_view(), name='services-with-categories'),
     path('api/appointments/', AppointmentCreateView.as_view(), name='create-appointment'),
     path("api/appointments/slots/", SlotListView.as_view()),
-    path('api/auth/login/', LoginView.as_view()),
     path('api/masters/by-category/<int:category_id>/', MastersByCategoryView.as_view()),
     path("api/posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
+    path('api/check-admin/', check_admin),
     path("api/appointments/slots/<int:pk>/", SlotDetailView.as_view()),
     path('api/services/by-category/<int:category_id>/', ServicesByCategoryView.as_view()),
-    path("api/auth/check/", CheckAdminStatusView.as_view()),
+    path('api/admin-login/', admin_login),
     path('api/posts/', PostListView.as_view())
 ]
 

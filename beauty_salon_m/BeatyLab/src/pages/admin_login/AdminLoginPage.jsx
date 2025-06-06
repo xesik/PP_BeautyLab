@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import NavigationHeader from "../NavigationHeader";
 import Footer from "../Footer";
-import api from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const AdminLoginPage = () => {
@@ -12,14 +11,25 @@ const AdminLoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     try {
-      const res = await api.post("/auth/login/", { login, password });
-      if (res.status === 200) {
-        localStorage.setItem("isAdmin", "true");
+      const response = await fetch("/api/admin-login/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ login, password })
+      });
+
+      if (response.ok) {
         navigate("/admin");
+      } else {
+        const data = await response.json();
+        setError(data.error || "Ошибка входа");
       }
     } catch (err) {
-      setError("Неверный логин или пароль");
+      console.error("Ошибка при входе:", err);
+      setError("Ошибка соединения с сервером");
     }
   };
 

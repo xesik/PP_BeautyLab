@@ -1,8 +1,11 @@
 from datetime import date, datetime
 
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from rest_framework.generics import ListAPIView, CreateAPIView, get_object_or_404, RetrieveAPIView
+from rest_framework.utils import json
+
 from .models import Post, Master, ServiceCategory, Appointment, Service
 from .serializers import PostSerializer, MasterSerializer, ServiceCategoryWithServicesSerializer, \
     AppointmentCreateSerializer, SlotSerializer, ServiceSerializer
@@ -12,7 +15,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
@@ -142,21 +145,25 @@ class PostDetailView(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-class LoginView(APIView):
-    permission_classes = [permissions.AllowAny]
 
-    def post(self, request):
-        login_ = request.data.get('login')
-        password = request.data.get('password')
-        user = authenticate(request, username=login_, password=password)
-        if user:
-            login(request, user)
-            return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
-        return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+@csrf_exempt
+def admin_login(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('login')
+        password = data.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None and user.is_staff:
+            login(request, user)  # создаёт сессию
+            response = JsonResponse({'message': 'ok'})
+            return response
+        else:
+            return JsonResponse({'error': 'Неверный логин или пароль'}, status=403)
 
 
-class CheckAdminStatusView(APIView):
-    def get(self, request):
-        if request.user.is_authenticated:
-            return Response({"is_staff": request.user.is_staff})
-        return Response({"is_staff": False}, status=401)
+def check_admin(request):
+    if request.user.is_authenticated and request.user.is_staff:
+        return JsonResponse({'status': 'ok'})
+    return JsonResponse({'error': 'unauthorized'}, status=401)
