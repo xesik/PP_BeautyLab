@@ -6,6 +6,8 @@ import HomePage from './pages/HomePage';
 import BlogPage from './pages/BlogPage';
 import FullBlogPage from "./pages/FullBlogPage";
 import AdminPanel from './pages/entry_5/AdminPanel';
+import AdminLoginPage from "./pages/admin_login/AdminLoginPage";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
   return (
@@ -15,6 +17,15 @@ function App() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/post/:id" element={<FullBlogPage />} />
         <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/admin_login" element={<AdminLoginPage />} />
+
+    <Route path="/admin" element={
+  <ProtectedRoute>
+    <AdminPanel />
+  </ProtectedRoute>
+} />
+<Route path="/login" element={<AdminLoginPage />} />
+
       </Routes>
     </BrowserRouter>
   );

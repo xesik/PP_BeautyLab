@@ -89,11 +89,11 @@ error = {error}
 
           {step === 2 && (
             <SelectServiceStep
-            onBack={() => setStep(0)}
-            categoryId={master?.category} // 👈 передаём сюда
-            onSelect={(selectedService) => {
-              setService(selectedService);
-              setStep(0);
+              onBack={() => setStep(0)}
+              categoryId={master?.category_id}  // ✅ теперь это число
+              onSelect={(selectedService) => {
+                setService(selectedService);
+                setStep(0);
               }}
             />
           )}

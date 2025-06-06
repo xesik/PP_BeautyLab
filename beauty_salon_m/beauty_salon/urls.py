@@ -14,6 +14,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from core.views import PostListView
@@ -34,15 +36,24 @@ from core.views import ServicesByCategoryView
 
 from core.views import PostDetailView
 
+from core.views import LoginView
+
+from core.views import CheckAdminStatusView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/masters/', MasterListView.as_view(), name='master-list'),
     path('api/services/with-categories/', ServiceCategoryWithServicesView.as_view(), name='services-with-categories'),
     path('api/appointments/', AppointmentCreateView.as_view(), name='create-appointment'),
     path("api/appointments/slots/", SlotListView.as_view()),
+    path('api/auth/login/', LoginView.as_view()),
     path('api/masters/by-category/<int:category_id>/', MastersByCategoryView.as_view()),
     path("api/posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path("api/appointments/slots/<int:pk>/", SlotDetailView.as_view()),
     path('api/services/by-category/<int:category_id>/', ServicesByCategoryView.as_view()),
+    path("api/auth/check/", CheckAdminStatusView.as_view()),
     path('api/posts/', PostListView.as_view())
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

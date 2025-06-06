@@ -31,7 +31,7 @@ const BeautyLabConfirmation = ({ master, service, datetime, onSelectStep, onNext
 
           {/* Услуга */}
           <section
-            className="mt-20 max-md:mt-10 cursor-pointer"
+            className="flex flex-wrap gap-5 justify-between mt-20 w-full cursor-pointer max-md:mt-10 max-md:max-w-full"
             onClick={() => onSelectStep(2)}
           >
             <AppointmentDetail
@@ -39,11 +39,16 @@ const BeautyLabConfirmation = ({ master, service, datetime, onSelectStep, onNext
               title="Услуга"
               description={service || "Не выбрана"}
             />
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/aef58dbb384b15b091ea5f6369ced721e671c35d"
+              alt=""
+              className="object-contain shrink-0 my-auto w-4 aspect-[0.55]"
+            />
           </section>
 
           {/* Дата и время */}
           <section
-            className="mt-20 max-md:mt-10 cursor-pointer"
+            className="flex flex-wrap gap-5 justify-between mt-20 w-full cursor-pointer max-md:mt-10 max-md:max-w-full"
             onClick={() => onSelectStep(3)}
           >
             <AppointmentDetail
@@ -51,17 +56,21 @@ const BeautyLabConfirmation = ({ master, service, datetime, onSelectStep, onNext
               title="Дата и время"
               description={datetime || "Не выбрана"}
             />
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/aef58dbb384b15b091ea5f6369ced721e671c35d"
+              alt=""
+              className="object-contain shrink-0 my-auto w-4 aspect-[0.55]"
+            />
           </section>
 
           {/* Кнопка продолжить */}
-          <div className="flex flex-col"
-          onClick={onNext}>
+          <div className="flex flex-col" onClick={onNext}>
             <ContinueButton />
             {error && (
-  <p className="mt-4 text-center text-red-600 text-lg">
-    {error}
-  </p>
-)}
+              <p className="mt-4 text-center text-red-600 text-lg">
+                {error}
+              </p>
+            )}
           </div>
         </div>
       </div>

@@ -11,11 +11,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
-
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 User = get_user_model()
 
@@ -142,3 +141,22 @@ class ServicesByCategoryView(ListAPIView):
 class PostDetailView(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+class LoginView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        login_ = request.data.get('login')
+        password = request.data.get('password')
+        user = authenticate(request, username=login_, password=password)
+        if user and user.is_staff:
+            login(request, user)
+            return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+        return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class CheckAdminStatusView(APIView):
+    def get(self, request):
+        if request.user.is_authenticated:
+            return Response({"is_staff": request.user.is_staff})
+        return Response({"is_staff": False}, status=401)

@@ -5,12 +5,15 @@ from .models import Post, Master, Service, ServiceCategory, User, Appointment
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['id', 'title', 'text']  # можно добавить image, если нужно
+        fields = ['id', 'title', 'text', 'image']  # можно добавить image, если нужно
 
 class MasterSerializer(serializers.ModelSerializer):
+    category_id = serializers.IntegerField(source='category.id')
+    category_name = serializers.CharField(source='category.name')
+
     class Meta:
         model = Master
-        fields = ['id', 'name', 'rating', 'category']
+        fields = ['id', 'name', 'rating', 'category_id', 'category_name']
 
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:

@@ -2,16 +2,16 @@ const servicesData = {
   "Макияж": {
     title: "Макияж и перманентный макияж",
     description: "Макияж — это не просто внешний образ, это искусство самовыражения и уверенности.",
-    image: "https://via.placeholder.com/400x300?text=Макияж",
+    image: "./makiyazh.jpg",
     prices: [
       { name: "Дневной макияж", price: "2000 ₽" },
       { name: "Вечерний макияж", price: "2500 ₽" }
     ]
   },
   "Волосы": {
-    title: "Укладки и стрижки",
+    title: "Укладки",
     description: "Уход за волосами, создание стиля и выразительности. Профессиональные мастера и лучшие материалы.",
-    image: "https://via.placeholder.com/400x300?text=Волосы",
+    image: "./ukladka.jpg",
     prices: [
       { name: "Женская стрижка", price: "1800 ₽" },
       { name: "Укладка", price: "1000 ₽" }
@@ -20,7 +20,7 @@ const servicesData = {
   "Брови": {
     title: "Коррекция и окрашивание бровей",
     description: "Форма, цвет и стиль — ваши брови будут идеальными под вашу внешность.",
-    image: "https://via.placeholder.com/400x300?text=Брови",
+    image: "./brovi.jpg",
     prices: [
       { name: "Окрашивание", price: "1000 ₽" },
       { name: "Коррекция", price: "800 ₽" }
@@ -29,7 +29,7 @@ const servicesData = {
   "Маникюр и педикюр": {
     title: "Маникюр и педикюр",
     description: "Профессиональный уход за ногтями и кожей рук и ног для идеального внешнего вида.",
-    image: "https://via.placeholder.com/400x300?text=Маникюр+и+Педикюр",
+    image: "./manik.jpg",
     prices: [
       { name: "Классический маникюр", price: "1200 ₽" },
       { name: "Педикюр с покрытием", price: "1800 ₽" }
@@ -38,7 +38,7 @@ const servicesData = {
   "Стрижка": {
     title: "Мужские и женские стрижки",
     description: "Современные техники стрижки, индивидуальный подход и стильный образ.",
-    image: "https://via.placeholder.com/400x300?text=Стрижка",
+    image: "./strizhki.jpg",
     prices: [
       { name: "Мужская стрижка", price: "1500 ₽" },
       { name: "Женская модельная стрижка", price: "2000 ₽" }

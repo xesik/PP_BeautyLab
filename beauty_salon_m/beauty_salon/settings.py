@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,6 +26,10 @@ SECRET_KEY = 'django-insecure-a@64#9w$wlv)1anw0%t0#v&44&m%m9fpr#$82baaykn*n480#w
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_HTTPONLY = True
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # порт Vite
@@ -114,6 +118,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/

@@ -76,8 +76,6 @@ const AdminPanel = () => {
 
   return (
     <main className="bg-orange-50 min-h-screen p-8">
-      <AdminHeader />
-      <LogoSection />
 
       <h2 className="text-3xl font-semibold my-6">Управление записями</h2>
 

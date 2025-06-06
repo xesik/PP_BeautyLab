@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ChevronIcon from "./ChevronIcon";
 import ServiceItem from "./ServiceItem";
-import { BackArrowIcon } from "../entry_4/BackArrowIcon";
+import { BackArrowIcon } from "../entry_2/BackArrowIcon";
 import api from "../../api/axios";
 
 const SelectServiceStep = ({ onBack, onSelect, categoryId }) => {
@@ -30,7 +30,7 @@ const SelectServiceStep = ({ onBack, onSelect, categoryId }) => {
         <button onClick={onBack} className="mb-6">
           <BackArrowIcon />
         </button>
-        <h1 className="text-4xl font-bold text-center mb-10">Выберите услугу</h1>
+        <h1 className="text-4xl font-mb text-center mb-10">Выберите услугу</h1>
 
         <div className="flex flex-col gap-4">
           {categories.map((cat, index) => (

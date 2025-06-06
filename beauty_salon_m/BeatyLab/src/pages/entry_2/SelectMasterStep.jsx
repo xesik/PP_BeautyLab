@@ -28,7 +28,7 @@ const SelectMasterStep = ({ onBack, onSelect, categoryId }) => {
         <button onClick={onBack} className="mb-6">
           <BackArrowIcon />
         </button>
-        <h1 className="text-4xl font-bold text-center mb-10">Выберите мастера</h1>
+        <h1 className="text-4xl font-mb text-center mb-10">Выберите мастера</h1>
 
         {loading ? (
           <p className="text-center">Загрузка...</p>
@@ -42,6 +42,9 @@ const SelectMasterStep = ({ onBack, onSelect, categoryId }) => {
               >
                 <h2 className="text-2xl font-semibold">{master.name}</h2>
                 <p className="mt-2 text-gray-500">Рейтинг: {master.rating}</p>
+                <p className="mt-1 text-gray-400 text-sm">
+                  Категория: {master.category_name || "Не указана"}
+                </p>
               </div>
             ))}
           </div>
