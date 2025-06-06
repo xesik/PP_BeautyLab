@@ -13,7 +13,7 @@ const BookingModal = ({ isOpen, onClose }) => {
   const [datetime, setDatetime] = useState(null);
   const [error, setError] = useState("");
 
-  // Блокировка скролла заднего фона
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -35,7 +35,7 @@ const BookingModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
 
-  // Закрытие по Esc
+
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
@@ -49,7 +49,7 @@ const BookingModal = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex justify-center items-center">
       <div className="relative w-full max-w-[750px] max-h-[95vh] overflow-hidden rounded-xl bg-orange-50 shadow-xl">
-        {/* Кнопка закрытия */}
+
         <button
           onClick={onClose}
           className="absolute top-5 right-5 text-4xl text-gray-600 z-50 hover:text-black"
@@ -69,7 +69,7 @@ const BookingModal = ({ isOpen, onClose }) => {
     setError("Пожалуйста, выберите мастера, услугу и дату.");
     return;
   }
-  setError(""); // сброс ошибки
+  setError("");
   setStep(4);
 }}
 error = {error}
@@ -79,7 +79,7 @@ error = {error}
           {step === 1 && (
             <SelectMasterStep
               onBack={() => setStep(0)}
-              categoryId={service?.service_cat} // 👈 передаём id категории
+              categoryId={service?.service_cat}
               onSelect={(selectedMaster) => {
                 setMaster(selectedMaster);
                 setStep(0);
@@ -90,7 +90,7 @@ error = {error}
           {step === 2 && (
             <SelectServiceStep
               onBack={() => setStep(0)}
-              categoryId={master?.category_id}  // ✅ теперь это число
+              categoryId={master?.category_id}
               onSelect={(selectedService) => {
                 setService(selectedService);
                 setStep(0);

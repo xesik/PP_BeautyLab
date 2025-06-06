@@ -26,7 +26,6 @@ const FullBlogPage = () => {
     <div className="flex flex-col min-h-screen bg-orange-50 font-jost">
       <Layout>
         <article className="w-full max-w-7xl inline-block mx-auto bg-white p-10 rounded-medium shadow-lg text-black">
-          {/* Кнопка назад */}
           <button
             onClick={() => navigate(-1)}
             className="mb-6 text-purple-600 hover:text-purple-800 text-lg underline"
