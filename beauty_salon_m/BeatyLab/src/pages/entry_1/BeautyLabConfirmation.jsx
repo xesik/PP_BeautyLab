@@ -12,15 +12,15 @@ const BeautyLabConfirmation = ({ master, service, datetime, onSelectStep, onNext
 
         <div className="flex flex-col px-8 mt-40 mb-0 w-full max-md:px-5 max-md:mt-10 max-md:mb-2.5 max-md:max-w-full">
 
-          {/* Мастер */}
+          {/* Услуга (теперь первая) */}
           <section
             className="flex flex-wrap gap-5 justify-between w-full cursor-pointer max-md:max-w-full"
-            onClick={() => onSelectStep(1)}
+            onClick={() => onSelectStep(2)}
           >
             <AppointmentDetail
-              imageSrc="https://cdn.builder.io/api/v1/image/assets/TEMP/4a2f0177349bc1abc96aeb20c7051e65d64b0376"
-              title="Мастер"
-              description={master || "Не выбран"}
+              imageSrc="https://cdn.builder.io/api/v1/image/assets/TEMP/bf6e4936c2158a3661b86e6faae471c64d3bd488"
+              title="Услуга"
+              description={service || "Не выбрана"}
             />
             <img
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/aef58dbb384b15b091ea5f6369ced721e671c35d"
@@ -29,15 +29,15 @@ const BeautyLabConfirmation = ({ master, service, datetime, onSelectStep, onNext
             />
           </section>
 
-          {/* Услуга */}
+          {/* Мастер (теперь вторая) */}
           <section
             className="flex flex-wrap gap-5 justify-between mt-20 w-full cursor-pointer max-md:mt-10 max-md:max-w-full"
-            onClick={() => onSelectStep(2)}
+            onClick={() => onSelectStep(1)}
           >
             <AppointmentDetail
-              imageSrc="https://cdn.builder.io/api/v1/image/assets/TEMP/bf6e4936c2158a3661b86e6faae471c64d3bd488"
-              title="Услуга"
-              description={service || "Не выбрана"}
+              imageSrc="https://cdn.builder.io/api/v1/image/assets/TEMP/4a2f0177349bc1abc96aeb20c7051e65d64b0376"
+              title="Мастер"
+              description={master || "Не выбран"}
             />
             <img
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/aef58dbb384b15b091ea5f6369ced721e671c35d"
