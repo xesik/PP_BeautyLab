@@ -36,6 +36,16 @@ const AdminPanel = () => {
       .catch((err) => console.error("Ошибка загрузки:", err));
   };
 
+useEffect(() => {
+  if (!checked) return;
+
+  const interval = setInterval(() => {
+    fetchAppointments();
+  }, 10000); // каждые 10 секунд
+
+  return () => clearInterval(interval);
+}, [checked]);
+
   useEffect(() => {
     if (checked) fetchAppointments();
   }, [checked]);
